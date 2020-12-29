@@ -52,6 +52,8 @@ module.exports = {
       { avoidEscape: true, allowTemplateLiterals: false },
     ],
 
+    "linebreak-style": 0,
+
     // Prettier overrides:
     'arrow-parens': 'off',
     'function-paren-newline': 'off',

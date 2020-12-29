@@ -464,6 +464,7 @@ function initialize({
     let username = initialUsername;
     let password = initialPassword;
 
+    /* eslint-disable no-param-reassign */
     if (initialConfig) {
         url = initialConfig.url;
         cdnUrlObject = initialConfig.cdnUrlObject;
@@ -472,6 +473,7 @@ function initialize({
         proxyUrl = initialConfig.proxyUrl;
         version = initialConfig.version;
     }
+    /* eslint-enable no-param-reassign */
 
     const PARSE_RANGE_HEADER = /\/(\d+)$/;
 
