@@ -1,8 +1,8 @@
 {
-  "name": "@throneless/libsignal-service",
-  "version": "1.2.1",
-  "description": "A fork of the the libtextsecure components of Signal-Desktop, adapted for use by nodejs.",
-  "main": "src/index.js",
+  "name": "@gausma/libsignal-service-javascript",
+  "version": "0.1.0",
+  "description": "A fork of the famous @throneless/libsignal-service. This fork generalizes the use of the library.",
+  "main": "src/main.js",
   "files": [
     "/src",
     "/config",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/throneless-tech/libsignal-service-javascript.git"
+    "url": "https://github.com/gausma/libsignal-service-javascript.git"
   },
   "keywords": [
     "signal",
@@ -22,12 +22,12 @@
     "textsecure",
     "axolotl"
   ],
-  "author": "Josh King <josh@throneless.tech>",
-  "license": "GPL-3.0-or-later",
+  "author": "Martin Gaus",
+  "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/throneless-tech/libsignal-service-javascript/issues"
+    "url": "https://github.com/gausma/libsignal-service-javascript/issues"
   },
-  "homepage": "https://github.com/throneless-tech/libsignal-service-javascript#readme",
+  "homepage": "https://github.com/gausma/libsignal-service-javascript#readme",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

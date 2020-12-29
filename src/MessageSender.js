@@ -53,16 +53,17 @@ function stringToArrayBuffer(str) {
 }
 
 class MessageSender {
-  constructor(store) {
+  constructor(store, config = null) {
     this.pendingMessages = {};
     this.store = store;
+    this.config = config;
   }
 
   async connect() {
     if (this.server === undefined) {
       const username = await this.store.getNumber();
       const password = await this.store.getPassword();
-      this.server = this.constructor.WebAPI.connect({ username, password });
+      this.server = this.constructor.WebAPI.connect({ username, password, config: this.config });
     }
   }
 

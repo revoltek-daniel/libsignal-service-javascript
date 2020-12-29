@@ -154,6 +154,8 @@ function _validateResponse(response, schema) {
 }
 
 function _createSocket(url, { certificateAuthority, proxyUrl }) {
+  debug(`_createSocket: ${url}`)
+
   let requestOptions;
   if (proxyUrl) {
     requestOptions = {
@@ -426,6 +428,7 @@ function initialize({
   proxyUrl,
   version,
 }) {
+
   if (!is.string(url)) {
     throw new Error('WebAPI.initialize: Invalid server url');
   }
@@ -447,7 +450,7 @@ function initialize({
   if (!is.string(version)) {
     throw new Error('WebAPI.initialize: Invalid version');
   }
-
+  
   // Thanks to function-hoisting, we can put this return statement before all of the
   //   below function definitions.
   return {
@@ -457,9 +460,19 @@ function initialize({
   // Then we connect to the server with user-specific information. This is the only API
   //   exposed to the browser context, ensuring that it can't connect to arbitrary
   //   locations.
-  function connect({ username: initialUsername, password: initialPassword }) {
+  function connect({ username: initialUsername, password: initialPassword, config: initialConfig = null }) {
     let username = initialUsername;
     let password = initialPassword;
+
+    if (initialConfig) {
+        url = initialConfig.url;
+        cdnUrlObject = initialConfig.cdnUrlObject;
+        certificateAuthority = initialConfig.certificateAuthority;
+        contentProxyUrl = initialConfig.contentProxyUrl;
+        proxyUrl = initialConfig.proxyUrl;
+        version = initialConfig.version;
+    }
+
     const PARSE_RANGE_HEADER = /\/(\d+)$/;
 
     // Thanks, function hoisting!

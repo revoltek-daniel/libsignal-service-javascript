@@ -35,13 +35,14 @@ const { ContactBuffer, GroupBuffer } = protobuf;
 const RETRY_TIMEOUT = 2 * 60 * 1000; // two minutes
 
 class MessageReceiver extends EventTarget {
-  constructor(store, signalingKey, options = {}) {
+  constructor(store, signalingKey, options = {}, config = null) {
     super();
     this.count = 0;
 
     this.signalingKey = signalingKey;
     this.store = store;
     this.calledClose = false;
+    this.config = config;
 
     this.incomingQueue = new PQueue({ concurrency: 1 });
     this.pendingQueue = new PQueue({ concurrency: 1 });
@@ -76,7 +77,7 @@ class MessageReceiver extends EventTarget {
       let username = this.uuid || this.number;
       username = `${username  }.${  this.deviceId}`;
       const password = await this.store.getPassword();
-      this.server = this.constructor.WebAPI.connect({ username, password });
+      this.server = this.constructor.WebAPI.connect({ username, password, config: this.config });
     }
 
     if (this.calledClose) {

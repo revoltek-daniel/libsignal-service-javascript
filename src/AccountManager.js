@@ -32,9 +32,10 @@ const VerifiedStatus = {
 };
 
 class AccountManager extends EventTarget {
-  constructor(username, password, store) {
+  constructor(username, password, store, config = null) {
     super(username, password, store);
-    this.server = this.constructor.WebAPI.connect({ username, password });
+
+    this.server = this.constructor.WebAPI.connect({ username, password, config });
     this.store = store;
     this.username = username;
     this.password = password;
