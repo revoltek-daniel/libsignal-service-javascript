@@ -35,14 +35,19 @@ const { ContactBuffer, GroupBuffer } = protobuf;
 const RETRY_TIMEOUT = 2 * 60 * 1000; // two minutes
 
 class MessageReceiver extends EventTarget {
-  constructor(store, signalingKey, options = {}, config = null) {
+  constructor(store, signalingKey, options = {}, config = null, serverTrustRoot = null) {
     super();
     this.count = 0;
 
     this.signalingKey = signalingKey;
     this.store = store;
     this.calledClose = false;
+
     this.config = config;
+
+    if (serverTrustRoot) {
+        this.constructor.serverTrustRoot = crypto.base64ToArrayBuffer(serverTrustRoot);
+    }
 
     this.incomingQueue = new PQueue({ concurrency: 1 });
     this.pendingQueue = new PQueue({ concurrency: 1 });

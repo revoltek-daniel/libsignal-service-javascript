@@ -34,9 +34,9 @@ module.exports = {};
 exports = module.exports;
 
 exports.config = config;
+exports.serverTrustRoot = serverTrustRoot;
 exports.ProtocolStore = require('./ProtocolStore.js');
 exports.AttachmentHelper = require('./AttachmentHelper.js');
 exports.AccountManager = require("./AccountManager.js")(WebAPI.initialize(config.develop));
 exports.MessageSender = require("./MessageSender.js")(WebAPI.initialize(config.develop));
-exports.MessageReceiverDevelop = require('./MessageReceiver.js')(WebAPI.initialize(config.develop), serverTrustRoot.develop);
-exports.MessageReceiverProduct = require('./MessageReceiver.js')(WebAPI.initialize(config.product), serverTrustRoot.product);
+exports.MessageReceiver = require('./MessageReceiver.js')(WebAPI.initialize(config.develop), serverTrustRoot.develop);
