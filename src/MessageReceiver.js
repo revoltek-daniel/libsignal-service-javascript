@@ -1355,7 +1355,8 @@ class MessageReceiver extends EventTarget {
     const cdnId = attachment.cdnId && attachment.cdnId !== '0' ? attachment.cdnId : attachment.cdnKey;
     const encrypted = await this.server.getAttachment(
       cdnId,
-      attachment.cdnNumber || '0'
+      attachment.cdnNumber || '0',
+      this.config
     );
     const { key, digest, size } = attachment;
 

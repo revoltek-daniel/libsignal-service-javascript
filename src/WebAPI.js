@@ -1024,9 +1024,14 @@ function initialize({
       return packId;
     }
 
-    async function getAttachment(cdnKey, cdnNumber) {
-      const cdnUrl = cdnUrlObject[cdnNumber] || cdnUrlObject['0'];
+    async function getAttachment(cdnKey, cdnNumber, config = null) {
+      let cdnUrl = cdnUrlObject[cdnNumber] || cdnUrlObject['0'];
       // This is going to the CDN, not the service, so we use _outerAjax
+      
+      if (config) {
+          cdnUrl = config.cdnUrlObject[cdnNumber] || config.cdnUrlObject['0'];
+      }
+
       return _outerAjax(`${cdnUrl}/attachments/${cdnKey}`, {
         certificateAuthority,
         proxyUrl,
