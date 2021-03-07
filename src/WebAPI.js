@@ -631,19 +631,27 @@ function initialize({
       });
     }
 
-    function requestVerificationSMS(number) {
+    function requestVerificationSMS(number, captcha = null) {
+      let urlParameters = `/sms/code/${number}`;
+      if (captcha != null) {
+        urlParameters = `/sms/code/${number}?captcha=${captcha}`;
+      }
       return _ajax({
         call: 'accounts',
         httpType: 'GET',
-        urlParameters: `/sms/code/${number}`,
+        urlParameters,
       });
     }
 
-    function requestVerificationVoice(number) {
-      return _ajax({
+    function requestVerificationVoice(number, captcha = null) {
+        let urlParameters = `/sms/code/${number}`;
+        if (captcha != null) {
+          urlParameters = `/sms/code/${number}?captcha=${captcha}`;
+        }
+        return _ajax({
         call: 'accounts',
         httpType: 'GET',
-        urlParameters: `/voice/code/${number}`,
+        urlParameters,
       });
     }
 

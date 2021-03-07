@@ -42,12 +42,12 @@ class AccountManager extends EventTarget {
     this.pending = Promise.resolve();
   }
 
-  requestVoiceVerification() {
-    return this.server.requestVerificationVoice(this.username);
+  requestVoiceVerification(captcha = null) {
+    return this.server.requestVerificationVoice(this.username, captcha);
   }
 
-  requestSMSVerification() {
-    return this.server.requestVerificationSMS(this.username);
+  requestSMSVerification(captcha = null) {
+    return this.server.requestVerificationSMS(this.username, captcha);
   }
 
   async encryptDeviceName(name, providedIdentityKey) {
