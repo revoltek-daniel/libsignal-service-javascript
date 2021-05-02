@@ -644,9 +644,9 @@ function initialize({
     }
 
     function requestVerificationVoice(number, captcha = null) {
-        let urlParameters = `/sms/code/${number}`;
+        let urlParameters = `/voice/code/${number}`;
         if (captcha != null) {
-          urlParameters = `/sms/code/${number}?captcha=${captcha}`;
+          urlParameters = `/voice/code/${number}?captcha=${captcha}`;
         }
         return _ajax({
         call: 'accounts',

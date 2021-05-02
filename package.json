@@ -1,6 +1,6 @@
 {
   "name": "@gausma/libsignal-service-javascript",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A fork of the famous @throneless/libsignal-service. This fork generalizes the use of the library.",
   "main": "src/main.js",
   "files": [
