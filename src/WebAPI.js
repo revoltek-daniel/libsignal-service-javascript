@@ -187,6 +187,7 @@ function getContentType(response) {
 }
 
 function _promiseAjax(providedUrl, options) {
+  debug(options);
   return new Promise((resolve, reject) => {
     const url = providedUrl || `${options.host}/${options.path}`;
 
@@ -250,7 +251,7 @@ function _promiseAjax(providedUrl, options) {
       // Access key is already a Base64 string
       fetchOptions.headers['Unidentified-Access-Key'] = accessKey;
     } else if (options.user && options.password) {
-      const user = _getString(options.user);
+      const user = options.uuid ? options.uuid : _getString(options.user);
       const password = _getString(options.password);
       const auth = _btoa(`${user}:${password}`);
       fetchOptions.headers.Authorization = `Basic ${auth}`;
@@ -259,7 +260,7 @@ function _promiseAjax(providedUrl, options) {
     if (options.contentType) {
       fetchOptions.headers['Content-Type'] = options.contentType;
     }
-
+    debug( fetchOptions.headers)
     fetch(url, fetchOptions)
       .then(response => {
         let resultPromise;
@@ -290,6 +291,7 @@ function _promiseAjax(providedUrl, options) {
           }
           if (options.responseType === 'json') {
             if (options.validateResponse) {
+              debug(result);
               if (!_validateResponse(result, options.validateResponse)) {
                 if (options.redactUrl) {
                   debug(
@@ -343,6 +345,8 @@ function _promiseAjax(providedUrl, options) {
           } else {
             debug(options.type, url, response.status, 'Error');
           }
+
+          debug(response.headers);
           return reject(
             HTTPError(
               'promiseAjax: error response',
@@ -529,6 +533,7 @@ function initialize({
         validateResponse: param.validateResponse,
         unauthenticated: param.unauthenticated,
         accessKey: param.accessKey,
+        uuid: param.uuid,
       }).catch(e => {
         const { code } = e;
         if (code === 200) {
@@ -733,7 +738,7 @@ function initialize({
       });
     }
 
-    function registerKeys(genKeys) {
+    async function registerKeys(genKeys, uuid) {
       const keys = {};
       keys.identityKey = _btoa(_getString(genKeys.identityKey));
       keys.signedPreKey = {
@@ -761,6 +766,7 @@ function initialize({
         call: 'keys',
         httpType: 'PUT',
         jsonData: keys,
+        uuid: await uuid,
       });
     }
 

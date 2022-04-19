@@ -6,6 +6,7 @@
 
 const btoa = require('btoa');
 const { default: PQueue } = require('p-queue');
+
 const debug = require('debug')('libsignal-service:AccountManager');
 const libsignal = require('@throneless/libsignal-protocol');
 const EventTarget = require('./EventTarget.js');
@@ -132,7 +133,7 @@ class AccountManager extends EventTarget {
           )
             .then(clearSessionsAndPreKeys)
             .then(generateKeys)
-            .then(keys => registerKeys(keys).then(() => confirmKeys(keys)))
+            .then(keys => registerKeys(keys, this.store.getUuid()).then(() => confirmKeys(keys)))
             .then(() => registrationDone({ number: this.username }));
         }
       )
