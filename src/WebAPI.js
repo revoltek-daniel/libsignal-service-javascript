@@ -187,7 +187,6 @@ function getContentType(response) {
 }
 
 function _promiseAjax(providedUrl, options) {
-  debug(options);
   return new Promise((resolve, reject) => {
     const url = providedUrl || `${options.host}/${options.path}`;
 
@@ -260,7 +259,7 @@ function _promiseAjax(providedUrl, options) {
     if (options.contentType) {
       fetchOptions.headers['Content-Type'] = options.contentType;
     }
-    debug( fetchOptions.headers)
+    
     fetch(url, fetchOptions)
       .then(response => {
         let resultPromise;
@@ -291,7 +290,6 @@ function _promiseAjax(providedUrl, options) {
           }
           if (options.responseType === 'json') {
             if (options.validateResponse) {
-              debug(result);
               if (!_validateResponse(result, options.validateResponse)) {
                 if (options.redactUrl) {
                   debug(
@@ -346,7 +344,6 @@ function _promiseAjax(providedUrl, options) {
             debug(options.type, url, response.status, 'Error');
           }
 
-          debug(response.headers);
           return reject(
             HTTPError(
               'promiseAjax: error response',
